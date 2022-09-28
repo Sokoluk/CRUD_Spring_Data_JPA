@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Человек</title>
+</head>
+<body>
+<p th:text="${person.getName() + ', ' + person.getDate()}">VALUE</p>
+
+<div th:if="${books.isEmpty()}">
+    <p>Человек не взял ни одной книги</p>
+</div>
+
+<div th:if="${!books.isEmpty()}">
+    <b>Книги:</b>
+    <table th:each="book: ${books}">
+<!--        <div th:if="book.isDelay == true" style="color: red">-->
+<!--            <p th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">User</p>-->
+<!--        </div>-->
+
+<!--        <div th:if="book.isDelay == false">-->
+<!--            <p th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">User</p>-->
+<!--        </div>-->
+        <p th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}"
+           th:style="${book.isDelay()} ? 'color:red':'color:black' ">User</p>
+    </table>
+</div>
+
+<hr>
+<form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
+    <input type="submit" value="Редактировать"/>
+</form>
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+    <input type="submit" value="Удалить"/>
+</form>
+</body>
+</html>
